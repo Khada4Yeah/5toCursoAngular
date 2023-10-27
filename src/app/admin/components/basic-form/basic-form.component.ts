@@ -12,7 +12,10 @@ export class BasicFormComponent implements OnInit {
   phoneField = new FormControl('');
   colorField = new FormControl('#000000');
   dateField = new FormControl('');
-  ageField = new FormControl('');
+  ageField = new FormControl(12);
+
+  categoryField = new FormControl('category-2');
+  tagField = new FormControl();
 
   constructor() {}
 
