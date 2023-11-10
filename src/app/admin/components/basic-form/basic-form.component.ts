@@ -18,12 +18,12 @@ export class BasicFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nameField.valueChanges.subscribe((value) => {
-      console.log(value);
-    });
-    this.form.valueChanges.subscribe((value) => {
-      console.log(value);
-    });
+    // this.nameField.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // });
+    // this.form.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // });
   }
 
   getNameValue() {
@@ -40,14 +40,24 @@ export class BasicFormComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(10),
-          Validators.pattern(/^[a-zA-Z ]+$/),
+      fullName: this.formBuilder.group({
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^[a-zA-Z ]+$/),
+          ],
         ],
-      ],
+        last: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^[a-zA-Z ]+$/),
+          ],
+        ],
+      }),
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
       color: ['#000000'],
@@ -62,7 +72,11 @@ export class BasicFormComponent implements OnInit {
   }
 
   get nameField() {
-    return this.form.get('name') as FormControl;
+    return this.form.get('fullName.name') as FormControl;
+  }
+
+  get lastField() {
+    return this.form.get('fullName.last') as FormControl;
   }
 
   get emailField() {
