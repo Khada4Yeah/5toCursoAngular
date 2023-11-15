@@ -45,6 +45,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     MatStepperModule,
     MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [
     MatButtonModule,
@@ -66,6 +67,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     MatStepperModule,
     MatDatepickerModule,
+    MatNativeDateModule,
   ],
 })
 export class MaterialModule {}
