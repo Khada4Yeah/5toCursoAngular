@@ -47,10 +47,15 @@
             <mat-label>Confirm Password</mat-label>
             <input
               placeholder="password"
-              formControlName="password"
+              formControlName="confirmPassword"
               matInput
               type="password"
             />
+            <div *ngIf="form.get('confirmPassword').touched && form.errors">
+              <mat-error *ngIf="form.hasError('match_password')">
+                No son iguales
+              </mat-error>
+            </div>
           </mat-form-field>
         </div>
       </div>

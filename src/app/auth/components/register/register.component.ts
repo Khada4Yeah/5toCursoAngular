@@ -34,16 +34,22 @@ export class RegisterComponent implements OnInit {
   }
 
   private buildForm() {
-    this.form = this.formBuilder.group({
-      email: ['', [Validators.required]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(6),
-          MyValidators.validPassword,
+    this.form = this.formBuilder.group(
+      {
+        email: ['', [Validators.required]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            MyValidators.validPassword,
+          ],
         ],
-      ],
-    });
+        confirmPassword: ['', [Validators.required]],
+      },
+      {
+        validators: MyValidators.matchPassword,
+      }
+    );
   }
 }
