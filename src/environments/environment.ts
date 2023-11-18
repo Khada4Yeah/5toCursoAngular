@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url_api: 'https://store.nicobytes.site/api',
+  url_api: 'https://api.escuelajs.co/api/v1',
   firebase: {
     apiKey: 'AIzaSyCN599W6_flBEpe0xrcuBlGPRW3OKzDr7o',
     authDomain: 'platzi-store-forms.firebaseapp.com',
@@ -12,8 +12,8 @@ export const environment = {
     projectId: 'platzi-store-forms',
     storageBucket: 'platzi-store-forms.appspot.com',
     messagingSenderId: '783669493891',
-    appId: '1:783669493891:web:f973c1ba9bb213e2c75bb6'
-  }
+    appId: '1:783669493891:web:f973c1ba9bb213e2c75bb6',
+  },
 };
 
 /*

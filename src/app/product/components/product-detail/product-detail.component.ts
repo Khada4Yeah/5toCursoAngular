@@ -7,16 +7,15 @@ import { Product } from './../../../core/models/product.model';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
-
   product: Product;
 
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -27,22 +26,24 @@ export class ProductDetailComponent implements OnInit {
   }
 
   fetchProduct(id: string) {
-    this.productsService.getProduct(id)
-    .subscribe(product => {
+    this.productsService.getProduct(id).subscribe((product) => {
       this.product = product;
     });
   }
 
   createProduct() {
     const newProduct: Product = {
-      _id: '222',
-      name: 'nuevo desde angular',
-      image: 'assets/images/banner-1.jpg',
+      id: '222',
+      title: 'nuevo desde angular',
+      images: ['assets/images/banner-1.jpg'],
       price: 3000,
-      description: 'nuevo producto'
+      description: 'nuevo producto',
+      category: {
+        id: 0,
+        name: 'nueva categoria',
+      },
     };
-    this.productsService.createProduct(newProduct)
-    .subscribe(product => {
+    this.productsService.createProduct(newProduct).subscribe((product) => {
       console.log(product);
     });
   }
@@ -50,19 +51,18 @@ export class ProductDetailComponent implements OnInit {
   updateProduct() {
     const updateProduct: Partial<Product> = {
       price: 555555,
-      description: 'edicion titulo'
+      description: 'edicion titulo',
     };
-    this.productsService.updateProduct('2', updateProduct)
-    .subscribe(product => {
-      console.log(product);
-    });
+    this.productsService
+      .updateProduct('2', updateProduct)
+      .subscribe((product) => {
+        console.log(product);
+      });
   }
 
   deleteProduct() {
-    this.productsService.deleteProduct('222')
-    .subscribe(rta => {
+    this.productsService.deleteProduct('222').subscribe((rta) => {
       console.log(rta);
     });
   }
-
 }
