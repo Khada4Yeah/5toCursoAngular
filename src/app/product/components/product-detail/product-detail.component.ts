@@ -41,6 +41,7 @@ export class ProductDetailComponent implements OnInit {
       category: {
         id: 0,
         name: 'nueva categoria',
+        image: '',
       },
     };
     this.productsService.createProduct(newProduct).subscribe((product) => {

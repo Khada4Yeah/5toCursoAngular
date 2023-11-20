@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Category } from 'src/app/core/models/product.model';
+import { CategoriesService } from 'src/app/core/services/categories.service';
 
 @Component({
   selector: 'app-categories',
@@ -9,7 +10,7 @@ import { Category } from 'src/app/core/models/product.model';
 })
 export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
-  displayedColumns: string[] = ['id', 'name', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'image', 'actions'];
 
   constructor(private categoriesService: CategoriesService) {}
 
@@ -23,4 +24,3 @@ export class CategoriesComponent implements OnInit {
     });
   }
 }
-import { CategoriesService } from 'src/app/core/services/categories.service';
