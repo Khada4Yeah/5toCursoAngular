@@ -9,8 +9,13 @@ import { Category } from '../models/product.model';
 })
 export class CategoriesService {
   constructor(private http: HttpClient) {}
+
   getAllCategories() {
     return this.http.get<Category[]>(`${environment.url_api}/categories`);
+  }
+
+  getCategory(id: string) {
+    return this.http.get<Category>(`${environment.url_api}/categories/${id}`);
   }
 
   createCategory(data: Partial<Category>) {

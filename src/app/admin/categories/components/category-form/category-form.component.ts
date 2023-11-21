@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CategoriesService } from './../../../../core/services/categories.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { MyValidators } from 'src/app/utils/validators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-category-form',
@@ -14,25 +15,35 @@ import { MyValidators } from 'src/app/utils/validators';
 })
 export class CategoryFormComponent implements OnInit {
   form: FormGroup;
-  imageUrl: string;
+  image$: Observable<string>;
+  categoryId: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private route: ActivatedRoute
   ) {
     this.buildForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.categoryId = params.id;
+
+      if (this.categoryId) {
+        this.getCategory();
+      }
+    });
+  }
 
   private buildForm() {
     this.form = this.formBuilder.group({
       name: [
         '',
         [Validators.required, Validators.minLength(4)],
-        MyValidators.validateCategory(this.categoriesService),
+        // MyValidators.validateCategory(this.categoriesService),
       ],
       image: ['', Validators.required],
     });
@@ -64,6 +75,12 @@ export class CategoryFormComponent implements OnInit {
     });
   }
 
+  private getCategory() {
+    this.categoriesService.getCategory(this.categoryId).subscribe((data) => {
+      this.form.patchValue(data);
+    });
+  }
+
   uploadFile(event) {
     const image = event.target.files[0];
     const name = 'category.png';
@@ -74,8 +91,8 @@ export class CategoryFormComponent implements OnInit {
       .snapshotChanges()
       .pipe(
         finalize(() => {
-          const urlImage$ = ref.getDownloadURL();
-          urlImage$.subscribe((url) => {
+          this.image$ = ref.getDownloadURL();
+          this.image$.subscribe((url) => {
             console.log(url);
             this.imageField.setValue(url);
           });
