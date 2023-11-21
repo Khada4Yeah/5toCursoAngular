@@ -59,8 +59,11 @@ export class CategoryFormComponent implements OnInit {
 
   save() {
     if (this.form.valid) {
-      this.createCategory();
-      console.log(this.form.value);
+      if (this.categoryId) {
+        this.updateCategory();
+      } else {
+        this.createCategory();
+      }
     } else {
       this.form.markAllAsTouched();
     }
@@ -73,6 +76,17 @@ export class CategoryFormComponent implements OnInit {
 
       this.router.navigate(['/admin/categories']);
     });
+  }
+
+  private updateCategory() {
+    const data = this.form.value;
+    this.categoriesService
+      .updateCategory(this.categoryId, data)
+      .subscribe((rta) => {
+        console.log(rta);
+
+        this.router.navigate(['/admin/categories']);
+      });
   }
 
   private getCategory() {
