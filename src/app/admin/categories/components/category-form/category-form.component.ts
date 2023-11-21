@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from './../../../../core/services/categories.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { MyValidators } from 'src/app/utils/validators';
 
 @Component({
   selector: 'app-category-form',
@@ -28,7 +29,11 @@ export class CategoryFormComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: [
+        '',
+        [Validators.required, Validators.minLength(4)],
+        MyValidators.validateCategory(this.categoriesService),
+      ],
       image: ['', Validators.required],
     });
   }
