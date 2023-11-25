@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CategoriesService } from './../../../../core/services/categories.service';
-import { MyValidators } from 'src/app/utils/validators';
-import { Observable } from 'rxjs';
 import { Category } from 'src/app/core/models/product.model';
 
 @Component({
@@ -22,6 +19,8 @@ export class CategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('category component');
+
     this.route.params.subscribe((params: Params) => {
       if (params.id) {
         this.getCategory(params.id);
@@ -30,11 +29,16 @@ export class CategoryComponent implements OnInit {
   }
 
   createCategory(data) {
-    this.categoriesService.createCategory(data).subscribe((rta) => {
-      console.log(rta);
+    console.log('data', data);
 
-      this.router.navigate(['/admin/categories']);
-    });
+    this.categoriesService.createCategory(data).subscribe(
+      (rta) => {
+        console.log(rta);
+
+        this.router.navigate(['/admin/categories']);
+      },
+      (err) => console.log(err)
+    );
   }
 
   updateCategory(data) {

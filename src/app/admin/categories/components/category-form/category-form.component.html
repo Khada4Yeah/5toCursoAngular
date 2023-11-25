@@ -8,15 +8,15 @@
                 <div class="col-xs">
                     <mat-form-field>
                         <mat-label>Nombre</mat-label>
-                        <input placeholder="Nombre" formControlName="name" matInput type="text" />
+                        <input placeholder="Nombre" formControlName="name" matInput type="text">
                         <div class="messages" *ngIf="nameField.touched && nameField.invalid">
                             <mat-error *ngIf="nameField.hasError('required')">
                                 Este campo es requerido
                             </mat-error>
                             <mat-error *ngIf="nameField.hasError('minlength')">
-                                Mínimo debe tener 4 caracteres
+                                Minimo debe tener 4 caracteres
                             </mat-error>
-                            <!-- <mat-error *ngIf="nameField.hasError('not_avaible')">
+                            <!-- <mat-error *ngIf="nameField.hasError('not_available')">
                                 Este nombre ya lo tiene otra categoría
                             </mat-error> -->
                         </div>
@@ -25,10 +25,9 @@
             </div>
             <div class="row">
                 <div class="col-xs">
-                    <!-- <img *ngIf="(image$ |async)" [src]="imageField.value" alt=""> -->
-
-                    <img *ngIf="imageField.value" [src]="imageField.value" alt="img">
-                    <input (change)="uploadFile($event)" type="file" />
+                    <img *ngIf="imageField.value" [src]="imageField.value" />
+                    <!-- <img *ngIf="(image$ | async) as image" [src]="image" /> -->
+                    <input type="file" (change)="uploadFile($event)">
                     <div class="messages" *ngIf="imageField.touched && imageField.invalid">
                         <mat-error *ngIf="imageField.hasError('required')">
                             Este campo es requerido
@@ -38,11 +37,11 @@
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button type="submit">
-                <span *ngIf="!category">Crear categoría</span>
-                <span *ngIf="category">Editar categoría</span>
-
+            <button mat-raised-button color="primary" type="submit">
+                <span *ngIf="isNew">Crear Categoría</span>
+                <span *ngIf="!isNew">Editar Categoría</span>
             </button>
         </mat-card-actions>
     </mat-card>
+
 </form>
