@@ -46,7 +46,10 @@
       <div class="row">
         <div class="col-xs">
           <mat-form-field>
-            <input placeholder="Category" formControlName="categoryId" matInput type="number">
+            <mat-label>Categories</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option [value]="category.id" *ngFor="let category of categories">{{ category.name }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
